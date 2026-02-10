@@ -1,0 +1,59 @@
+services:
+  nginx:
+    restart: unless-stopped
+    container_name: ${COMPOSE_PROJECT_NAME}.nginx
+    build:
+      context: ./.docker/nginx
+      target: nginx_dev
+    depends_on:
+      - php-fpm
+    ports:
+      - '${NGINX_HTTP_PORT:-}:80'
+      - '${NGINX_HTTPS_PORT:-}:443'
+    volumes:
+      - .:/app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  php-fpm:
+    restart: unless-stopped
+    container_name: ${COMPOSE_PROJECT_NAME}.php-fpm
+    build:
+      context: .docker/php-fpm
+      target: php_dev
+    volumes:
+        - .:/app
+    depends_on:
+      - mariadb
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  mariadb:
+    restart: unless-stopped
+    container_name: ${COMPOSE_PROJECT_NAME}.mariadb
+    image: 'mariadb:11'
+    ports:
+      - '${FORWARD_DB_PORT:-}:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD:-rootpassword}'
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: '${DB_DATABASE:-dbname}'
+      MYSQL_USER: '${DB_USERNAME:-dbuser}'
+      MYSQL_PASSWORD: '${DB_PASSWORD:-password}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - './.docker/mariadb/data:/var/lib/mysql'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  app_network:
