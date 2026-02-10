@@ -25,7 +25,7 @@ abstract class AbstractForm
     public Model $entityData;
 
     /** Метод должнен возвращать экземпляр формы @return self */
-    abstract public function getForm(): self;
+    abstract public function form(): self;
 
     /**
      * Метод должен возвращать массив с определением полей  ПолеВЗапросе => ПолеВБазеДанных
