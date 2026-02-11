@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace modules\Users\Forms;
+namespace Modules\Users\Forms;
 
 use App\Forms\AbstractForm;
 use App\Forms\Inputs\InputEmail;
