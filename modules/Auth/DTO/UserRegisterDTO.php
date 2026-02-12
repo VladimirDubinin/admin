@@ -15,7 +15,8 @@ class UserRegisterDTO extends Data
         public string $name,
         public string $email,
         #[Password(min: 8)]
-        public string $password
+        public string $password,
+        public string $password_confirmation,
     ) {
 
     }
@@ -26,8 +27,9 @@ class UserRegisterDTO extends Data
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')
+                Rule::unique('users', 'email'),
             ],
+            'password' => 'required|confirmed|min:8',
         ];
     }
 
@@ -36,6 +38,7 @@ class UserRegisterDTO extends Data
         return [
             'email.unique' => 'Этот адрес электронной почты уже занят',
             'password.min' => 'Пароль должен содержать минимум 8 символов',
+            'password.confirmed' => 'Пароли не совпадают',
         ];
     }
 }
