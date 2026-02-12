@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Auth\DTO\UserRegisterDTO;
 use Modules\Auth\Services\AuthService;
-use Modules\Users\Models\User;
 
 class AuthController extends Controller
 {
@@ -24,7 +23,8 @@ class AuthController extends Controller
 
     public function register(UserRegisterDTO $userRegisterDTO, AuthService $authService): RedirectResponse
     {
-        $authService->create($userRegisterDTO);
+        $user = $authService->create($userRegisterDTO);
+        Auth::login($user);
         return redirect(route('index'));
     }
 
