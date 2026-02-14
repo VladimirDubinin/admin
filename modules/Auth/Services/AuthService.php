@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Auth\Services;
 
-use Illuminate\Support\Facades\Hash;
 use Modules\Auth\DTO\UserRegisterDTO;
 use modules\Users\Models\User;
 
@@ -13,7 +14,7 @@ class AuthService
         $user = new User();
         $user->name = $userRegisterDTO->name;
         $user->email = $userRegisterDTO->email;
-        $user->password = Hash::make($userRegisterDTO->password);
+        $user->password = $userRegisterDTO->password;
 
         $user->save();
         return $user;

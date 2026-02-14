@@ -1,14 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Auth\Controller;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Auth\DTO\UserRegisterDTO;
 use Modules\Auth\Services\AuthService;
+use Modules\Users\Models\User;
+use Modules\Users\Requests\UserRequest;
 
 class AuthController extends Controller
 {
@@ -37,14 +40,9 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request): RedirectResponse
+    public function login(UserRequest $request): RedirectResponse
     {
-        $credentials = $request->validate(
-            [
-                'email' => ['required', 'email'],
-                'password' => ['required', 'min:8'],
-            ]
-        );
+        $credentials = $request->validated();
 
         if (Auth::attempt($credentials, (bool) $request->input('remember'))) {
             $request->session()->regenerate();
