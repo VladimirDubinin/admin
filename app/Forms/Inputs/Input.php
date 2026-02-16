@@ -12,6 +12,8 @@ abstract class Input
     public string $label = '';
     public string $id = '';
     public bool $readOnly = false;
+
+    public bool $disabled = false;
     public bool $accessDenied = false;
     public string $validationRule = '';
     public array $customFields = [];
@@ -50,6 +52,12 @@ abstract class Input
     public function setReadOnly(callable $value): self
     {
         $this->readOnly = $value();
+        return $this;
+    }
+
+    public function setDisabled(callable $value): self
+    {
+        $this->disabled = $value();
         return $this;
     }
 
@@ -95,6 +103,7 @@ abstract class Input
                 'label' => $this->label,
                 'read_only' => $this->readOnly,
                 'access_denied' => $this->accessDenied,
+                'disabled' => $this->disabled,
                 'validation_rule' => $this->validationRule,
             ]
         );
