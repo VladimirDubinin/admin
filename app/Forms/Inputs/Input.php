@@ -10,6 +10,7 @@ abstract class Input
     public string $name = '';
     public string $value = '';
     public string $label = '';
+    public string $placeholder = '';
     public string $id = '';
     public bool $readOnly = false;
 
@@ -18,56 +19,62 @@ abstract class Input
     public string $validationRule = '';
     public array $customFields = [];
 
-    public function setNameAndId(string $value): self
+    public function setNameAndId(string $value): static
     {
         $this->id = $value;
         $this->name = $value;
         return $this;
     }
 
-    public function setName(string $value): self
+    public function setName(string $value): static
     {
         $this->name = $value;
         return $this;
     }
 
-    public function setId(string $value): self
+    public function setId(string $value): static
     {
         $this->id = $value;
         return $this;
     }
 
-    public function setLabel(string $value): self
+    public function setLabel(string $value): static
     {
         $this->label = $value;
         return $this;
     }
 
-    public function setValue(mixed $value): self
+    public function setPlaceholder(string $value): static
+    {
+        $this->placeholder = $value;
+        return $this;
+    }
+
+    public function setValue(mixed $value): static
     {
         $this->value = $value;
         return $this;
     }
 
-    public function setReadOnly(callable $value): self
+    public function setReadOnly(callable $value): static
     {
         $this->readOnly = $value();
         return $this;
     }
 
-    public function setDisabled(callable $value): self
+    public function setDisabled(callable $value): static
     {
         $this->disabled = $value();
         return $this;
     }
 
-    public function setAccessDenied(callable $value): self
+    public function setAccessDenied(callable $value): static
     {
         $this->accessDenied = $value();
         return $this;
     }
 
-    public function setValidationRule(string $value): self
+    public function setValidationRule(string $value): static
     {
         $this->validationRule = $value;
         return $this;
@@ -81,7 +88,7 @@ abstract class Input
      * @param mixed $value
      * @return $this
      */
-    public function setCustomFields(string $fieldName, mixed $value): self
+    public function setCustomFields(string $fieldName, mixed $value): static
     {
         $this->customFields[$fieldName] = $value;
         return $this;
