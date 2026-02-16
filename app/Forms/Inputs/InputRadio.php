@@ -2,33 +2,19 @@
 
 namespace App\Forms\Inputs;
 
-class InputSelect extends Input
+class InputRadio extends Input
 {
     public array $items = [];
-    public bool $defaultNothing = false;
-    public bool $multiple = false;
 
     /**
      * Метод для установки элементов селекта
      *
      * @param callable $itemsLoader
-     * @return InputSelect
+     * @return InputRadio
      */
     public function setItems(callable $itemsLoader): self
     {
         $this->items = $itemsLoader();
-        return $this;
-    }
-
-    public function multiple(): static
-    {
-        $this->multiple = true;
-        return $this;
-    }
-
-    public function defaultNothing(): static
-    {
-        $this->defaultNothing = true;
         return $this;
     }
 
@@ -42,10 +28,8 @@ class InputSelect extends Input
         }
 
         $data = parent::get();
-        $data['type'] = 'select';
+        $data['type'] = 'radio';
         $data['items'] = $this->items;
-        $data['defaultNothing'] = $this->defaultNothing;
-        $data['multiple'] = $this->multiple;
 
         return $data;
     }
