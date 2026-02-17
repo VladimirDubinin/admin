@@ -7,6 +7,7 @@ namespace App\Forms;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 
 abstract class AbstractForm
 {
@@ -57,7 +58,7 @@ abstract class AbstractForm
     }
 
     /** Метод возвращает массив формы @return array */
-    public function getArray(): array
+    public function toArray(): array
     {
         return $this->form;
     }
@@ -135,5 +136,18 @@ abstract class AbstractForm
         }
 
         return $fieldsCompleted;
+    }
+
+    /**
+     * Метод выполняет валидацию формы
+     */
+    public function validate(): void
+    {
+        $request = app(Request::class);
+        $validator = Validator::make(
+            data: $request->all(),
+            rules: $this->getValidationRules(),
+        );
+        $validator->validate();
     }
 }

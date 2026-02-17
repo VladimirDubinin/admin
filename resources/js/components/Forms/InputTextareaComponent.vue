@@ -39,8 +39,8 @@ const props = defineProps<{
 const emits = defineEmits(['update:modelValue'])
 
 const inputParams = reactive({
-    value = props.modelValue,
-    elementId = props.id ? props.id : props.name,
+    value: props.modelValue,
+    elementId: props.id ? props.id : props.name,
     hasError: computed(() => !!props.error),
     errorMessage: computed(() => {
         if (Array.isArray(props.error)) {

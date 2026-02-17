@@ -41,12 +41,12 @@ class UserForm extends AbstractForm
                 ->setNameAndId('password.value')
                 ->get(),
 
-            'phone' => (new InputText())
+            /*'phone' => (new InputText())
                 ->setLabel('Телефон')
                 ->setValidationRule('required')
                 ->setValue($this->getFieldValue('phone.value'))
                 ->setNameAndId('phone.value')
-                ->get(),
+                ->get(),*/
         ];
 
         if (!empty($this->entityData)) {
