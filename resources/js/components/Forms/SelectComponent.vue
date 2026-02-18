@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, reactive} from "vue";
 
-const props = defineProps<{
+const props = defineProps({
     modelValue: {
         type: [String, Number],
         default: '',
@@ -42,7 +42,7 @@ const props = defineProps<{
         type: String,
         default: 'name',
     },
-}>()
+})
 
 const emits = defineEmits(['update:modelValue'])
 

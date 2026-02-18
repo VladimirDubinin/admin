@@ -6,13 +6,14 @@ import SelectComponent from "./SelectComponent.vue";
 import RadioComponent from "./RadioComponent.vue";
 import CheckboxComponent from "./CheckboxComponent.vue";
 
+const form = defineModel()
+
 const props = defineProps<{
-    modelValue: object,
     errors?: object | []
 }>()
 
 const emits = defineEmits(['update:modelValue'])
-const fields = reactive(props.modelValue)
+const fields = reactive(form)
 
 function updated() {
     emits('update:modelValue', fields)
