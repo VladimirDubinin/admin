@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+    <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Добавить</a>
     <table class="system-table w-100">
         <thead>
         <tr>
