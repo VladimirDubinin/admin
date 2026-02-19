@@ -19,7 +19,7 @@ class UserForm extends AbstractForm
         }
 
         $this->form = [
-            'id' => 0,
+            'id' => !empty($this->entityData->id) ? (int) $this->entityData->id : 0,
 
             'name' => (new InputText())
                 ->setLabel('Имя')
@@ -37,7 +37,6 @@ class UserForm extends AbstractForm
 
             'password' => (new InputPassword())
                 ->setLabel('Пароль')
-                ->setValidationRule('required')
                 ->setNameAndId('password.value')
                 ->get(),
 
@@ -52,7 +51,6 @@ class UserForm extends AbstractForm
         if (!empty($this->entityData)) {
             $this->form['created_at'] = $this->entityData->created_at;
             $this->form['updated_at'] = $this->entityData->updated_at;
-            $this->form['id'] = $this->entityData->id;
         }
 
         return $this;
