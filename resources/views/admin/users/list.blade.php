@@ -1,13 +1,16 @@
 @extends('layouts.admin')
 
 @section('content')
-    <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Добавить</a>
+    <div class="controls">
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Добавить</a>
+    </div>
     <table class="system-table w-100">
         <thead>
         <tr>
             <th>ID</th>
             <th>Имя</th>
             <th>Email</th>
+            <th>Роль</th>
             <th>Дата регистрации</th>
         </tr>
         </thead>
@@ -17,6 +20,7 @@
                 <td><a href="{{ route('admin.users.edit', $user->id) }}">{{ $user->id }}</a></td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
+                <td>{{ $user->roles()->pluck('display_name')->implode(', ') }}</td>
                 <td>{{ $user->created_at }}</td>
             </tr>
         @endforeach

@@ -3,7 +3,7 @@ import {computed, reactive} from "vue";
 
 const props = defineProps({
     modelValue: {
-        type: [String, Number],
+        type: [Array, String, Number],
         default: '',
     },
     options: {

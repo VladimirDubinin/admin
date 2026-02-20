@@ -2,6 +2,7 @@
 
 namespace Modules\Users\Services;
 
+use Illuminate\Support\Facades\DB;
 use Modules\Users\Models\User;
 
 class UserService
@@ -29,5 +30,14 @@ class UserService
     {
         $user->roles()->sync($roles);
         return $user;
+    }
+
+    public function delete(int $id): void
+    {
+        DB::transaction(function () use ($id) {
+           $user = User::query()->findOrFail($id);
+           $user->roles()->detach();
+           $user->delete();
+        });
     }
 }

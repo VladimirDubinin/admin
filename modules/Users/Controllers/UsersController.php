@@ -14,6 +14,10 @@ use Modules\Users\Services\UserService;
 
 class UsersController extends Controller
 {
+    public function __construct(
+        private readonly UserService $userService
+    )
+    {}
     public function index(): View
     {
         $users = User::all();
@@ -38,6 +42,7 @@ class UsersController extends Controller
                 'form_url' => route('admin.users.get_form', ['id' => $id]),
                 'store_url' => route('admin.users.store'),
                 'back_url' => route('admin.users'),
+                'delete_url' => route('admin.users.delete', ['id' => $id]),
             ]
         );
     }
@@ -47,18 +52,24 @@ class UsersController extends Controller
         return $userForm->form($id)->toArray();
     }
 
-    public function store(Request $request, UserForm $userForm, UserService $userService): JsonResponse
+    public function store(Request $request, UserForm $userForm): JsonResponse
     {
         $id = $request->input('id', 0);
         $form = $userForm->form($id);
         $form->validate();
         $fields = $form->getFieldsFromRequest();
         if ($id) {
-            $userService->update($id, $fields);
+            $this->userService->update($id, $fields);
         } else {
-            $userService->create($fields);
+            $this->userService->create($fields);
         }
 
+        return response()->json(['success' => true]);
+    }
+
+    public function delete(int $id): JsonResponse
+    {
+        $this->userService->delete($id);
         return response()->json(['success' => true]);
     }
 }
