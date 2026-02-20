@@ -17,7 +17,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Админка
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', [UsersController::class, 'index'])->name('admin.users');
         Route::get('/create', [UsersController::class, 'create'])->name('admin.users.create');

@@ -198,7 +198,7 @@ return [
          * Method to be called in the middleware return case.
          * Available: abort|redirect.
          */
-        'handling' => 'abort',
+        'handling' => 'redirect',
 
         /**
          * Handlers for the unauthorized method in the middlewares.
@@ -210,7 +210,7 @@ return [
              */
             'abort' => [
                 'code' => 403,
-                'message' => 'User does not have any of the necessary access rights.',
+                'message' => 'Пользователь не обладает необходимыми правами доступа.',
             ],
 
             /**
@@ -220,10 +220,10 @@ return [
              * If the message content is empty it won't be added to the redirection.
              */
             'redirect' => [
-                'url' => '/home',
+                'url' => '/',
                 'message' => [
                     'key' => 'error',
-                    'content' => '',
+                    'content' => 'Пользователь не обладает необходимыми правами доступа.',
                 ],
             ],
         ],
