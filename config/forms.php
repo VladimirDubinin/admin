@@ -4,6 +4,7 @@ return [
         'name' => 'name.value',
         'password' => 'password.value',
         'email' => 'email.value',
-        'phone' => 'phone.value',
+        //'phone' => 'phone.value',
+        'roles' => 'roles.value',
     ]
 ];

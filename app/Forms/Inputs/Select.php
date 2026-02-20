@@ -2,9 +2,9 @@
 
 namespace App\Forms\Inputs;
 
-class InputSelect extends Input
+class Select extends Input
 {
-    public array $items = [];
+    public mixed $items = [];
     public bool $defaultNothing = false;
     public bool $multiple = false;
 
@@ -12,7 +12,7 @@ class InputSelect extends Input
      * Метод для установки элементов селекта
      *
      * @param callable $itemsLoader
-     * @return InputSelect
+     * @return Select
      */
     public function setItems(callable $itemsLoader): self
     {

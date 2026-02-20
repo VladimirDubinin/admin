@@ -61,7 +61,7 @@ function updated() {
                         :id="item.id"
                         :default-nothing="item.defaultNothing"
                         :display-name="item.displayName"
-                        :options="item.options"
+                        :options="item.items"
                         :multiple="item.multiple"
                         :name="item.name"
                         :disabled="item.disabled"

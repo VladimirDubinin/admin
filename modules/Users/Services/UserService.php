@@ -8,7 +8,9 @@ class UserService
 {
     public function create(array $fields): User
     {
-        return User::query()->create($fields);
+        $user = User::query()->create($fields);
+        $this->syncRoles($user, $fields['roles']);
+        return $user;
     }
 
     public function update(int $id, array $fields): User
@@ -18,6 +20,14 @@ class UserService
             unset($fields['password']);
         }
         $user->update($fields);
+        $this->syncRoles($user, $fields['roles']);
+
+        return $user;
+    }
+
+    public function syncRoles(User $user, int|array $roles): User
+    {
+        $user->roles()->sync($roles);
         return $user;
     }
 }

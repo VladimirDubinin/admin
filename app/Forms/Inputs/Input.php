@@ -8,7 +8,7 @@ namespace App\Forms\Inputs;
 abstract class Input
 {
     public string $name = '';
-    public string $value = '';
+    public mixed $value = '';
     public string $label = '';
     public string $placeholder = '';
     public string $id = '';

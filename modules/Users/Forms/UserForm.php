@@ -7,7 +7,10 @@ namespace Modules\Users\Forms;
 use App\Forms\AbstractForm;
 use App\Forms\Inputs\InputEmail;
 use App\Forms\Inputs\InputPassword;
+use App\Forms\Inputs\Select;
 use App\Forms\Inputs\InputText;
+use Illuminate\Support\Collection;
+use Modules\Users\Models\Role;
 use modules\Users\Models\User;
 
 class UserForm extends AbstractForm
@@ -46,6 +49,16 @@ class UserForm extends AbstractForm
                 ->setValue($this->getFieldValue('phone.value'))
                 ->setNameAndId('phone.value')
                 ->get(),*/
+
+            'roles' => (new Select())
+                ->setLabel('Роль')
+                ->setValidationRule('required')
+                ->setValue($this->getSelectedRoles())
+                ->setNameAndId('roles.value')
+                ->setItems(function () {
+                    return Role::query()->get();
+                })
+                ->get(),
         ];
 
         if (!empty($this->entityData)) {
@@ -59,5 +72,14 @@ class UserForm extends AbstractForm
     protected function getFieldsDefinition(): array
     {
         return config('forms.user');
+    }
+
+    private function getSelectedRoles(): array|Collection
+    {
+        if (empty($this->entityData)) {
+            return [];
+        }
+
+        return $this->entityData->roles->pluck('id');
     }
 }

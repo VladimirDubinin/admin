@@ -47,7 +47,7 @@ const props = defineProps({
 const emits = defineEmits(['update:modelValue'])
 
 const inputParams = reactive({
-    value: props.modelValue,
+    value: !props.multiple && typeof props.modelValue === 'object' ? props.modelValue[0] : props.modelValue,
     elementId: props.id ? props.id : props.name,
     hasError: computed(() => !!props.error),
     errorMessage: computed(() => {
@@ -76,6 +76,7 @@ function change() {
             :id="inputParams.elementId"
             v-model="inputParams.value"
             :name="name"
+            :multiple="multiple"
             :disabled="disabled"
             :class="{'is_invalid': inputParams.hasError}"
             class="form-select cursor-pointer"
