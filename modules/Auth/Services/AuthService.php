@@ -17,6 +17,7 @@ class AuthService
         $user->email = $userRegisterDTO->email;
         $user->password = $userRegisterDTO->password;
         $user->save();
+        $user->addRole('user');
 
         Auth::login($user);
         return $user;
