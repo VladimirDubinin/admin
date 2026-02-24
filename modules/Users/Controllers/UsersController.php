@@ -21,13 +21,14 @@ class UsersController extends Controller
     public function index(): View
     {
         $users = User::all();
-        return view('admin.users.list', ['users' => $users]);
+        return view('admin.users.list', ['users' => $users, 'pageTitle' => 'Пользователи']);
     }
 
     public function create(): View
     {
         return view('admin.users.user',
             [
+                'pageTitle' => 'Создать пользователя',
                 'form_url' => route('admin.users.get_form'),
                 'store_url' => route('admin.users.store'),
                 'back_url' => route('admin.users'),
@@ -39,6 +40,7 @@ class UsersController extends Controller
     {
         return view('admin.users.user',
             [
+                'pageTitle' => 'Редактировать пользователя',
                 'form_url' => route('admin.users.get_form', ['id' => $id]),
                 'store_url' => route('admin.users.store'),
                 'back_url' => route('admin.users'),

@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render(Route::currentRouteName()) }}
+@endsection
+
 @section('content')
     <users-component
         :form_url="'{{ $form_url }}'"

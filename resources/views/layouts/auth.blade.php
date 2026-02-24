@@ -1,4 +1,4 @@
-@include('parts.header')
+@include('parts.head')
 
 @yield('content')
 

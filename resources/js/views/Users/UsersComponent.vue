@@ -2,7 +2,7 @@
 import axios from "axios";
 import {onMounted, ref} from "vue";
 import FormComponent from "../../components/Forms/FormComponent.vue";
-import PreloaderComponent from "../../components/Forms/PreloaderConponent.vue";
+import PreloaderComponent from "../../components/Forms/PreloaderComponent.vue";
 
 const props = defineProps({
     form_url: String,

@@ -8,16 +8,24 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
-Route::get('/register', [AuthController::class, 'registerForm'])->name('register.form');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
+    Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('/login', [AuthController::class, 'loginForm'])->name('login.form');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+});
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Админка
+/**
+ * Панель администрирования
+ */
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
+    Route::get('/', function () {
+        return view('admin.index');
+    })->name('admin.index');
+
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', [UsersController::class, 'index'])->name('admin.users');
         Route::get('/create', [UsersController::class, 'create'])->name('admin.users.create');

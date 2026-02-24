@@ -14,12 +14,8 @@ use Modules\Auth\Services\AuthService;
 
 class AuthController extends Controller
 {
-    public function registerForm(): View|RedirectResponse
+    public function showRegisterForm(): View
     {
-        if (Auth::check()) {
-            return redirect(route('index'));
-        }
-
         return view('auth.register');
     }
 
@@ -29,12 +25,8 @@ class AuthController extends Controller
         return redirect(route('index'));
     }
 
-    public function loginForm(): View|RedirectResponse
+    public function showLoginForm(): View
     {
-        if (Auth::check()) {
-            return redirect(route('index'));
-        }
-
         return view('auth.login');
     }
 
@@ -54,7 +46,10 @@ class AuthController extends Controller
 
     public function logout(): RedirectResponse
     {
-        Auth::logout();
+        if (Auth::check()) {
+            Auth::logout();
+        }
+
         return redirect(route('login.form'));
     }
 }

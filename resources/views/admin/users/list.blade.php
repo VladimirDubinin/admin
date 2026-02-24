@@ -1,11 +1,15 @@
 @extends('layouts.admin')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('admin.users') }}
+@endsection
+
 @section('content')
     <div class="controls">
         <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Добавить</a>
     </div>
-    <table class="system-table w-100">
-        <thead>
+    <table class="table table-parts table-sm table-bordered table-hover">
+        <thead class="table-light">
         <tr>
             <th>ID</th>
             <th>Имя</th>
@@ -14,7 +18,7 @@
             <th>Дата регистрации</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="parts table-group-divider">
         @foreach($users as $user)
             <tr>
                 <td><a href="{{ route('admin.users.edit', $user->id) }}">{{ $user->id }}</a></td>

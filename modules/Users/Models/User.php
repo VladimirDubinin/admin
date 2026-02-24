@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Users\Models;
+namespace modules\Users\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;

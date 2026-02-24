@@ -1,0 +1,94 @@
+.admin-wrapper {
+    color: $text-color;
+    background-color: $body-bg;
+
+    a {
+        color: $text-color;
+        text-decoration: none;
+        transition: .2s;
+
+        &:hover {
+            color: $primary !important;
+            text-decoration: none;
+        }
+    }
+
+    .sidebar {
+        border-right: 1px solid #dce0e6;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        height: 100vh;
+        position: fixed;
+        width: 220px;
+
+        .logo {
+            padding: 38px 0 16px;
+
+            a {
+                display: block;
+                font-size: 2rem;
+                font-weight: 700;
+                line-height: 1;
+                margin: auto;
+                padding: 0 10px;
+                text-align: center;
+                text-transform: uppercase;
+                width: 100%;
+            }
+        }
+
+        .login {
+            border-bottom: 1px solid #dce0e6;
+            padding: 16px 21px 19px;
+            display: flex;
+            justify-content: space-between;
+
+            .name {
+                font-weight: 700;
+            }
+        }
+
+        .menu {
+            padding: 19px 0;
+
+            .nav-item {
+                font-weight: 700;
+
+                &.active a {
+                    color: $primary;
+                }
+            }
+
+        }
+    }
+
+    .content {
+        display: flex;
+        flex: 1 auto;
+        flex-direction: column;
+        padding-left: 275px;
+        padding-right: 50px;
+
+        .content-wrapper {
+            padding-bottom: 45px;
+            padding-top: 45px;
+        }
+
+        .breadcrumbs {
+            background: none;
+            border-radius: 0;
+            font-size: .75rem;
+            margin-bottom: 2px;
+            padding: 0;
+        }
+
+        .controls {
+            margin-bottom: 1rem;
+        }
+
+        table a {
+            font-weight: bold;
+        }
+    }
+}
