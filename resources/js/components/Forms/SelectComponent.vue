@@ -72,6 +72,7 @@ function change() {
         class="form-input"
         :class="{'disabled': disabled}"
     >
+        <label v-if="label" class="form-check-label cursor-pointer" :for="inputParams.elementId" v-text="label"></label>
         <select
             :id="inputParams.elementId"
             v-model="inputParams.value"
@@ -85,7 +86,6 @@ function change() {
             <option v-if="defaultNothing" value=""></option>
             <option v-for="(option, index) in options" :key="index" :value="option.id" v-text="getName(option)"></option>
         </select>
-        <label v-if="label" class="form-check-label cursor-pointer" :for="inputParams.elementId" v-text="label"></label>
         <span v-if="inputParams.hasError" class="invalid-feedback mt-0" v-text="inputParams.errorMessage"></span>
     </div>
 </template>

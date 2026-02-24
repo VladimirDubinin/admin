@@ -96,3 +96,16 @@
         }
     }
 }
+
+@media (max-width: 768px) {
+    .admin-wrapper {
+        .sidebar {
+            display: none;
+        }
+
+        .content {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    }
+}

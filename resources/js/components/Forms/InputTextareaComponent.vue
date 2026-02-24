@@ -60,6 +60,7 @@ function change() {
         class="form-input"
         :class="{'disabled': disabled}"
     >
+        <label v-if="label" class="form-check-label cursor-pointer" :for="inputParams.elementId" v-text="label"></label>
         <textarea
             :id="inputParams.elementId"
             v-model="inputParams.value"
@@ -70,7 +71,6 @@ function change() {
             class="form-control cursor-pointer"
             @change="change"
         />
-        <label v-if="label" class="form-check-label cursor-pointer" :for="inputParams.elementId" v-text="label"></label>
         <span v-if="inputParams.hasError" class="invalid-feedback mt-0" v-text="inputParams.errorMessage"></span>
     </div>
 </template>

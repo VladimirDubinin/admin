@@ -64,19 +64,21 @@ async function remove() {
 <template>
     <preloader-component v-if="loading"></preloader-component>
 
-    <div v-if="!loading" >
-        <div class="controls">
+    <div v-if="!loading" class="row">
+        <div class="controls col-12">
             <button v-if="delete_url" @click="remove()" class="btn btn-danger">Удалить</button>
         </div>
 
-        <form-component :errors="errors" v-model="form"></form-component>
+        <div class="col-12 col-md-6">
+            <form-component :errors="errors" v-model="form"></form-component>
 
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <button class="btn btn-primary" @click="store()">Сохранить</button>
-            </div>
-            <div class="col-12 col-md-6">
-                <a class="btn btn-secondary" :href="back_url">Назад</a>
+            <div class="row">
+                <div class="col-6 col-sm-3">
+                    <button class="btn btn-primary btn-block" @click="store()">Сохранить</button>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <a class="btn btn-secondary btn-block" :href="back_url">Назад</a>
+                </div>
             </div>
         </div>
     </div>
