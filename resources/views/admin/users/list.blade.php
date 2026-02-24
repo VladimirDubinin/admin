@@ -30,4 +30,6 @@
         @endforeach
         </tbody>
     </table>
+
+    {{ $users->links('parts.breadcrumbs') }}
 @endsection

@@ -5,7 +5,7 @@
     a {
         color: $text-color;
         text-decoration: none;
-        transition: .2s;
+        transition: color .2s;
 
         &:hover {
             color: $primary !important;
@@ -35,6 +35,12 @@
                 text-align: center;
                 text-transform: uppercase;
                 width: 100%;
+            }
+
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
             }
         }
 

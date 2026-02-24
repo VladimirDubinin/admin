@@ -5,7 +5,7 @@
         <div class="sidebar">
             <div class="logo">
                 <a href="{{ route('admin.index') }}">
-                    <img src="" alt="{{ env('APP_NAME') }}">
+                    <img src="{{ asset('images/logo.png') }}" alt="{{ env('APP_NAME') }}">
                 </a>
             </div>
             <div class="login">
