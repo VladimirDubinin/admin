@@ -2,7 +2,8 @@
 $body-bg: #f8fafc;
 $primary: #06ac00;
 $secondary: #3d3935;
-$text-color: #3d3935;
+$text-primary: #3d3935;
+$text-secondary: #f8fafc;
 
 // Typography
 $font-family-sans-serif: 'Roboto', sans-serif;
@@ -10,4 +11,22 @@ $font-size-base: 0.875rem;
 $line-height-base: 1.6;
 
 //Table
-$table-bg: #f8f9fa
+$table-bg: #f8f9fa;
+
+// Colors
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66D9b;
+$dark-red: #d1480d;
+$red: #F5521E;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #00953C;
+$teal: #B1CA00;
+$cyan: #6cb2eb;
+
+$gray-800: #313131 !default;
+$gray-100: #f8f9fa !default;
+$gray-900: #212529 !default;
+$gray-400: #EEEEEE !default;

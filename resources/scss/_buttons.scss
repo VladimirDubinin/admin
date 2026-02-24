@@ -1,0 +1,30 @@
+.btn {
+    transition: background-color .3s !important;
+
+    &.btn-primary {
+        color: $text-secondary;
+
+        &:hover {
+            color: $text-secondary !important;
+            background-color: $green;
+        }
+    }
+
+    &.btn-secondary {
+        color: $text-secondary;
+
+        &:hover {
+            color: $text-secondary !important;
+            background-color: $gray-900;
+        }
+    }
+
+    &.btn-danger {
+        color: $text-secondary;
+
+        &:hover {
+            color: $text-secondary !important;
+            background-color: $dark-red;
+        }
+    }
+}

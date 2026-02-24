@@ -1,14 +1,12 @@
 .admin-wrapper {
-    color: $text-color;
     background-color: $body-bg;
 
     a {
-        color: $text-color;
+        color: $text-primary;
         text-decoration: none;
-        transition: color .2s;
 
         &:hover {
-            color: $primary !important;
+            color: $primary;
             text-decoration: none;
         }
     }
