@@ -20,7 +20,7 @@ class UsersController extends Controller
     {}
     public function index(): View
     {
-        $users = User::query()->paginate(1);
+        $users = User::query()->paginate(config('app.per_page'));
         return view('admin.users.list', ['users' => $users, 'pageTitle' => 'Пользователи']);
     }
 

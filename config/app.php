@@ -1,6 +1,8 @@
 <?php
 
 return [
+    // Количество элементов на страницу
+    'per_page' => 50,
 
     /*
     |--------------------------------------------------------------------------
@@ -122,5 +124,4 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-
 ];
