@@ -1,0 +1,21 @@
+header {
+    color: $text-primary;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 12;
+    border-bottom: 1px solid #dce0e6;
+
+    a {
+        text-decoration: none;
+        transition: color .2s;
+    }
+
+    .login {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 1rem;
+    }
+}
