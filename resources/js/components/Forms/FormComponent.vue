@@ -5,6 +5,7 @@ import InputTextareaComponent from "./InputTextareaComponent.vue";
 import SelectComponent from "./SelectComponent.vue";
 import RadioComponent from "./RadioComponent.vue";
 import CheckboxComponent from "./CheckboxComponent.vue";
+import InputFileComponent from "./InputFileComponent.vue";
 
 const form = defineModel()
 
@@ -95,6 +96,20 @@ function updated() {
                         :disabled="item.disabled"
                         :label="item.label"
                         :placeholder="item.placeholder"
+                        :error="errors ? errors[item.name] ?? '' : ''"
+                        @change="updated"
+                        class="mb-2"
+                    />
+                </div>
+
+                <div v-else-if="item.type === 'file'">
+                    <input-file-component
+                        v-model="item.value"
+                        :id="item.id"
+                        :name="item.name"
+                        :accept="item.accept"
+                        :multiple="item.multiple"
+                        :label="item.label"
                         :error="errors ? errors[item.name] ?? '' : ''"
                         @change="updated"
                         class="mb-2"
