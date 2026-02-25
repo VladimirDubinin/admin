@@ -17,6 +17,7 @@ const emits = defineEmits(['update:modelValue'])
 const fields = reactive(form)
 
 function updated() {
+    console.log(fields)
     emits('update:modelValue', fields)
 }
 </script>
@@ -113,6 +114,7 @@ function updated() {
                         :error="errors ? errors[item.name] ?? '' : ''"
                         @change="updated"
                         class="mb-2"
+                        ref="fileInput"
                     />
                 </div>
             </template>

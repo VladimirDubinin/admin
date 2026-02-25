@@ -29,7 +29,11 @@ onMounted(async () => {
 async function store() {
     errors.value = null;
     loading.value = true
-    await axios.post(props.store_url, form.value).then((response) => {
+    await axios.post(props.store_url, form.value/*, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }*/).then((response) => {
         if (response.data.success) {
             window.location.href = props.back_url
         }
@@ -39,9 +43,7 @@ async function store() {
         } else {
             throw e;
         }
-    }).finally(() => {
-        loading.value = false
-    })
+    });
 }
 
 async function remove() {

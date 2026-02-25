@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {computed, reactive} from "vue";
+import {computed, reactive, ref} from "vue";
 
 const props = defineProps({
     modelValue: {
-        type: [String, Number],
+        type: [File],
         default: '',
     },
     label: {
@@ -46,8 +46,12 @@ const inputParams = reactive({
     })
 })
 
-function change() {
-    emits('update:modelValue', inputParams.value)
+function change(event) {
+    const files = event.target.files;
+    if (files[0]) {
+        inputParams.value = files[0];
+        emits('update:modelValue', inputParams.value)
+    }
 }
 </script>
 
@@ -58,7 +62,6 @@ function change() {
         <label v-if="label" class="form-control cursor-pointer" :for="inputParams.elementId" v-text="label"></label>
         <input
             :id="inputParams.elementId"
-            v-model="inputParams.value"
             :name="name"
             :class="{'is_invalid': inputParams.hasError}"
             class="form-control cursor-pointer"
