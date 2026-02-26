@@ -15,11 +15,6 @@ use modules\Users\Models\User;
 
 class UserForm extends AbstractForm
 {
-    public function __construct()
-    {
-        $this->fieldsDefinition = config('forms.user');
-    }
-
     public function form(int $userId = 0): self
     {
         if (!empty($userId)) {
@@ -47,13 +42,6 @@ class UserForm extends AbstractForm
                 ->setLabel('Пароль')
                 ->setNameAndId('password.value')
                 ->get(),
-
-            /*'phone' => (new InputText())
-                ->setLabel('Телефон')
-                ->setValidationRule('required')
-                ->setValue($this->getFieldValue('phone.value'))
-                ->setNameAndId('phone.value')
-                ->get(),*/
 
             'roles' => (new Select())
                 ->setLabel('Роль')
