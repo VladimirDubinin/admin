@@ -6,6 +6,8 @@ use App\Filters\QueryFilter;
 
 class UserFilter extends QueryFilter
 {
+    protected array $filterableFields = ['name', 'email', 'roles'];
+
     public function name(string $value): void
     {
         $this->builder->where('name', 'like', "%{$value}%");

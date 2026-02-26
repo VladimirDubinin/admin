@@ -15,7 +15,10 @@ use modules\Users\Models\User;
 
 class UserForm extends AbstractForm
 {
-    public array $filter = [];
+    public function __construct()
+    {
+        $this->fieldsDefinition = config('forms.user');
+    }
 
     public function form(int $userId = 0): self
     {
@@ -58,7 +61,7 @@ class UserForm extends AbstractForm
                 ->setValue($this->getSelectedRoles())
                 ->setNameAndId('roles.value')
                 ->setItems(function () {
-                    return Role::query()->get();
+                    return Role::query()->select(['id', 'display_name AS name'])->get();
                 })
                 ->get(),
         ];
@@ -69,14 +72,6 @@ class UserForm extends AbstractForm
         }
 
         return $this;
-    }
-
-    public function filter(): array
-    {
-        $this->filter = [
-
-        ];
-        return $this->filter;
     }
 
     protected function getFieldsDefinition(): array

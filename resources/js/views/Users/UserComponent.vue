@@ -21,7 +21,7 @@ const errors = ref<object>();
 onMounted(async () => {
     loading.value = true
     await axios.post(props.form_url).then((response) => {
-        form.value = response.data.form
+        form.value = response.data
         loading.value = false
     })
 })

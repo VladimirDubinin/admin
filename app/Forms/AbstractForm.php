@@ -16,6 +16,9 @@ abstract class AbstractForm
     /** Правила валидации @var array */
     public array $validationRules = [];
 
+    /** Массив с определением полей  ПолеВЗапросе => ПолеВБазеДанных @var array */
+    protected array $fieldsDefinition = [];
+
     /** Заполненные поля @var array */
     public array $completedFields = [];
 
@@ -27,13 +30,6 @@ abstract class AbstractForm
 
     /** Метод должнен возвращать экземпляр формы @return self */
     abstract public function form(): self;
-
-    /**
-     * Метод должен возвращать массив с определением полей  ПолеВЗапросе => ПолеВБазеДанных
-     *
-     * @return array
-     */
-    abstract protected function getFieldsDefinition(): array;
 
     /**
      * Метод получает значения полей
@@ -48,7 +44,7 @@ abstract class AbstractForm
             return $defaultValue;
         }
 
-        $fields = $this->getFieldsDefinition();
+        $fields = $this->fieldsDefinition;
         $key = array_search($fieldName, $fields, true);
         if (!empty($key)) {
             return $this->entityData->$key;
@@ -124,7 +120,7 @@ abstract class AbstractForm
 
         $fieldsCompleted = [];
 
-        $fields = $this->getFieldsDefinition();
+        $fields = $this->fieldsDefinition;
         foreach ($fields as $field => $code) {
             if (array_key_exists($code, $this->completedFields)) {
                 $fieldsCompleted[$field] = $request->input($code);

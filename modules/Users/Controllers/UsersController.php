@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Users\Filters\UserFilter;
+use Modules\Users\Forms\UserFilterForm;
 use Modules\Users\Forms\UserForm;
 use Modules\Users\Models\User;
 use Modules\Users\Requests\UsersFilterRequest;
@@ -21,14 +22,14 @@ class UsersController extends Controller
     )
     {}
 
-    public function index(UsersFilterRequest $request): View
+    public function index(UserFilter $filter): View
     {
-        $filterData = $request->validated();
-        $filter = new UserFilter($filterData);
         $users = User::filter($filter)->paginate(config('app.per_page'));
+
         return view('admin.users.list', [
             'users' => $users,
-            'pageTitle' => 'Пользователи'
+            'pageTitle' => 'Пользователи',
+            'filters' => (new UserFilterForm())->form()->toArray(),
         ]);
     }
 
@@ -59,12 +60,7 @@ class UsersController extends Controller
 
     public function getForm(UserForm $userForm, int $id = 0): array
     {
-        $userForm->form($id);
-
-        return [
-            'form' => $userForm->toArray(),
-            'filter' => $userForm->filter(),
-        ];
+        return $userForm->form($id)->toArray();
     }
 
     public function store(Request $request, UserForm $userForm): JsonResponse
