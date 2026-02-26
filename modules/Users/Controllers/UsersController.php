@@ -8,8 +8,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Modules\Users\Filters\UserFilter;
 use Modules\Users\Forms\UserForm;
 use Modules\Users\Models\User;
+use Modules\Users\Requests\UsersFilterRequest;
 use Modules\Users\Services\UserService;
 
 class UsersController extends Controller
@@ -18,10 +20,16 @@ class UsersController extends Controller
         private readonly UserService $userService
     )
     {}
-    public function index(): View
+
+    public function index(UsersFilterRequest $request): View
     {
-        $users = User::query()->paginate(config('app.per_page'));
-        return view('admin.users.list', ['users' => $users, 'pageTitle' => 'Пользователи']);
+        $filterData = $request->validated();
+        $filter = new UserFilter($filterData);
+        $users = User::filter($filter)->paginate(config('app.per_page'));
+        return view('admin.users.list', [
+            'users' => $users,
+            'pageTitle' => 'Пользователи'
+        ]);
     }
 
     public function create(): View
@@ -51,7 +59,12 @@ class UsersController extends Controller
 
     public function getForm(UserForm $userForm, int $id = 0): array
     {
-        return $userForm->form($id)->toArray();
+        $userForm->form($id);
+
+        return [
+            'form' => $userForm->toArray(),
+            'filter' => $userForm->filter(),
+        ];
     }
 
     public function store(Request $request, UserForm $userForm): JsonResponse

@@ -21,13 +21,13 @@ const errors = ref<object>();
 onMounted(async () => {
     loading.value = true
     await axios.post(props.form_url).then((response) => {
-        form.value = response.data
+        form.value = response.data.form
         loading.value = false
     })
 })
 
 async function store() {
-    errors.value = null;
+    errors.value = null
     loading.value = true
     await axios.post(props.store_url, form.value/*, {
         headers: {
@@ -43,6 +43,7 @@ async function store() {
         } else {
             throw e;
         }
+        loading.value = true
     });
 }
 

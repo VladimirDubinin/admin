@@ -1,9 +1,9 @@
 import './bootstrap';
 import {createApp} from 'vue/dist/vue.esm-bundler';
 import WelcomeComponent from "./views/WelcomeComponent.vue";
-import UsersComponent from "./views/Users/UsersComponent.vue";
+import UserComponent from "./views/Users/UserComponent.vue";
 
 const app = createApp({});
 app.component('welcome-component', WelcomeComponent)
-app.component('users-component', UsersComponent)
+app.component('user-component', UserComponent)
 app.mount('#app')
