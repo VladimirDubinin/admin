@@ -10,19 +10,21 @@ abstract class QueryFilter
 {
     protected array $filterableFields = [];
 
-    protected array $filterParams = [];
-
     protected Builder $builder;
 
     public function __construct(
         protected Request $request,
     )
-    {}
-
-    public function setParams(array $filterParams): self
     {
-        $this->filterParams = $filterParams;
-        return $this;
+        $this->form();
+    }
+
+    abstract public function form(): void;
+
+    /** Метод возвращает массив формы фильтра @return array */
+    public function toArray(): array
+    {
+        return $this->filterableFields;
     }
 
     public function apply(Builder $builder): void
@@ -39,9 +41,7 @@ abstract class QueryFilter
 
     protected function fields(): array
     {
-        $fields = !empty($this->filterParams)
-            ? $this->filterParams
-            : $this->request->only($this->filterableFields);
+        $fields = $this->request->only(array_keys($this->filterableFields));
 
         return array_filter(
             array_map('trim', $fields)

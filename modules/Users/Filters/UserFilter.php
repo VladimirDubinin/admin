@@ -3,10 +3,38 @@
 namespace Modules\Users\Filters;
 
 use App\Filters\QueryFilter;
+use App\Forms\Inputs\InputText;
+use App\Forms\Inputs\Select;
+use Modules\Users\Models\Role;
 
 class UserFilter extends QueryFilter
 {
-    protected array $filterableFields = ['name', 'email', 'roles'];
+    public function form(): void
+    {
+        $this->filterableFields = [
+            'name' => (new InputText())
+                ->setLabel('Имя')
+                ->setValue($this->request->input('name'))
+                ->setNameAndId('name')
+                ->get(),
+
+            'email' => (new InputText())
+                ->setLabel('Email')
+                ->setValue($this->request->input('email'))
+                ->setNameAndId('email')
+                ->get(),
+
+            'roles' => (new Select())
+                ->setLabel('Роль')
+                ->setValue($this->request->input('roles'))
+                ->setNameAndId('roles')
+                ->defaultNothing()
+                ->setItems(function () {
+                    return Role::query()->select(['id', 'display_name AS name'])->get();
+                })
+                ->get(),
+        ];
+    }
 
     public function name(string $value): void
     {

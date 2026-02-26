@@ -29,7 +29,7 @@ class UsersController extends Controller
         return view('admin.users.list', [
             'users' => $users,
             'pageTitle' => 'Пользователи',
-            'filters' => (new UserFilterForm())->form()->toArray(),
+            'filters' => $filter->toArray(),
         ]);
     }
 
