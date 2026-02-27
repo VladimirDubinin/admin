@@ -4,6 +4,7 @@ namespace modules\Users\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Filters\Filterable;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +14,7 @@ use Laratrust\Traits\HasRolesAndPermissions;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasRolesAndPermissions, Filterable;
 
     /**

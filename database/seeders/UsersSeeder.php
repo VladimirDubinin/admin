@@ -29,11 +29,13 @@ class UsersSeeder extends Seeder
             ]
         );
 
-        $user = User::query()->create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
-            'password'  => \Hash::make('password'),
-        ]);
+        $user = User::query()->updateOrCreate(
+            ['email' => 'admin@admin.com'],
+            [
+                'name' => 'admin',
+                'password'  => 'password',
+            ]
+        );
 
         $user->addRole($admin);
     }
