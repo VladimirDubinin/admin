@@ -9,10 +9,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Users\Filters\UserFilter;
-use Modules\Users\Forms\UserFilterForm;
 use Modules\Users\Forms\UserForm;
 use Modules\Users\Models\User;
-use Modules\Users\Requests\UsersFilterRequest;
 use Modules\Users\Services\UserService;
 
 class UsersController extends Controller
