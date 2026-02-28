@@ -65,9 +65,8 @@ class UsersController extends Controller
     {
         $id = $request->input('id', 0);
         $form = $userForm->form($id);
-        $form->validate();
-        $fields = $form->getFieldsFromRequest();
-        if ($id) {
+        $fields = $form->validate()->getFieldsFromRequest();
+        if (!empty($id)) {
             $this->userService->update($id, $fields);
         } else {
             $this->userService->create($fields);

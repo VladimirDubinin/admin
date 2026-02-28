@@ -141,7 +141,7 @@ abstract class AbstractForm
     /**
      * Метод выполняет валидацию формы
      */
-    public function validate(): void
+    public function validate(): self
     {
         $request = app(Request::class);
         $validator = Validator::make(
@@ -149,5 +149,6 @@ abstract class AbstractForm
             rules: $this->getValidationRules(),
         );
         $validator->validate();
+        return $this;
     }
 }
