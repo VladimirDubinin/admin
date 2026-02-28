@@ -10,7 +10,9 @@ class UserService
     public function create(array $fields): User
     {
         $user = User::query()->create($fields);
-        $user->roles()->sync($fields['roles']);
+        if (array_key_exists('roles', $fields)) {
+            $user->roles()->sync($fields['roles']);
+        }
         return $user;
     }
 
@@ -21,7 +23,9 @@ class UserService
             unset($fields['password']);
         }
         $user->update($fields);
-        $user->roles()->sync($fields['roles']);
+        if (array_key_exists('roles', $fields)) {
+            $user->roles()->sync($fields['roles']);
+        }
 
         return $user;
     }
