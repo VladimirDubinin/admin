@@ -64,8 +64,7 @@ class UsersController extends Controller
     public function store(Request $request, UserForm $userForm): JsonResponse
     {
         $id = $request->input('id', 0);
-        $form = $userForm->form($id);
-        $fields = $form->validate()->getFieldsFromRequest();
+        $fields = $userForm->form($id)->validate()->getFieldsFromRequest();
         if (!empty($id)) {
             $this->userService->update($id, $fields);
         } else {
