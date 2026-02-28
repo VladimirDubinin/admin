@@ -28,7 +28,6 @@ onMounted(async () => {
 
 async function store() {
     errors.value = null
-    loading.value = true
     await axios.post(props.store_url, form.value/*, {
         headers: {
             'Content-Type': 'multipart/form-data'
@@ -43,7 +42,6 @@ async function store() {
         } else {
             throw e;
         }
-        loading.value = true
     });
 }
 
@@ -54,11 +52,7 @@ async function remove() {
                 window.location.href = props.back_url
             }
         }).catch((e) => {
-            if (e.response.status === 422) {
-                errors.value = e.response.data.errors
-            } else {
-                throw e;
-            }
+            throw e;
         })
     }
 }

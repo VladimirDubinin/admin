@@ -4,7 +4,7 @@
     <div class="container-fluid p-0">
         <div class="sidebar">
             <div class="logo">
-                <a href="{{ route('admin.index') }}">
+                <a href="{{ route('index') }}">
                     <img src="{{ asset('images/logo.png') }}" alt="{{ env('APP_NAME') }}">
                 </a>
             </div>

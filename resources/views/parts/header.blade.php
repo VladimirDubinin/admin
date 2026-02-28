@@ -1,7 +1,11 @@
 <header>
     <div class="container">
         <div class="row d-flex align-items-center">
-            <div class="col-6 col-sm-10"></div>
+            <div class="col-6 col-sm-10">
+                @if (Auth::user()?->hasRole('admin'))
+                    <a href="{{ route('admin.index') }}">Панель администрирования</a>
+                @endif
+            </div>
             <div class="login col-6 col-sm-2">
                 @if (Auth::check())
                     <span>{{ Auth::user()->name }}</span>

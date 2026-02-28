@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {reactive} from "vue";
 import InputTextComponent from "./InputTextComponent.vue";
 import InputTextareaComponent from "./InputTextareaComponent.vue";
 import SelectComponent from "./SelectComponent.vue";
@@ -14,17 +13,15 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits(['update:modelValue'])
-const fields = reactive(form)
 
 function updated() {
-    console.log(fields)
-    emits('update:modelValue', fields)
+    emits('update:modelValue', form)
 }
 </script>
 
 <template>
     <div>
-        <div v-for="(item, index) in fields" :key="index" class="mb-3">
+        <div v-for="(item, index) in form" :key="index" class="mb-3">
             <template v-if="item && item.type">
                 <div v-if="item.type === 'text' || item.type === 'number' || item.type === 'email' || item.type === 'password'">
                     <input-text-component

@@ -8,6 +8,17 @@
     <div class="controls">
         <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Добавить</a>
     </div>
+
+    @if (session('info'))
+        <div class="row mt-4">
+            <div class="col-lg-8">
+                <div class="alert alert-{{session('alert')}} m-0" role="alert">
+                    {{ session('info') }}
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-12 col-md-6 col-lg-4">
             <div class="filter">

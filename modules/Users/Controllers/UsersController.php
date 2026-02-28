@@ -67,16 +67,22 @@ class UsersController extends Controller
         $fields = $userForm->form($id)->validate()->getFieldsFromRequest();
         if (!empty($id)) {
             $this->userService->update($id, $fields);
+            $request->session()->flash('info', 'Пользователь успешно обновлён!');
+            $request->session()->flash('alert', 'success');
         } else {
             $this->userService->create($fields);
+            $request->session()->flash('info', 'Пользователь успешно добавлен!');
+            $request->session()->flash('alert', 'success');
         }
 
         return response()->json(['success' => true]);
     }
 
-    public function delete(int $id): JsonResponse
+    public function delete(Request $request, int $id): JsonResponse
     {
         $this->userService->delete($id);
+        $request->session()->flash('info', 'Пользователь успешно удалён!');
+        $request->session()->flash('alert', 'success');
         return response()->json(['success' => true]);
     }
 }
