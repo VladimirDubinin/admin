@@ -16,7 +16,7 @@ abstract class Input
 
     public bool $disabled = false;
     public bool $accessDenied = false;
-    public string $validationRule = '';
+    public string | array $validationRule = '';
     public array $customFields = [];
 
     public function setNameAndId(string $value): static
@@ -74,7 +74,7 @@ abstract class Input
         return $this;
     }
 
-    public function setValidationRule(string $value): static
+    public function setValidationRule(array | string $value): static
     {
         $this->validationRule = $value;
         return $this;

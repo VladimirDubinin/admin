@@ -10,6 +10,7 @@ use App\Forms\Inputs\InputPassword;
 use App\Forms\Inputs\Select;
 use App\Forms\Inputs\InputText;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\Rule;
 use Modules\Users\Models\Role;
 use modules\Users\Models\User;
 
@@ -33,13 +34,18 @@ class UserForm extends AbstractForm
 
             'email' => (new InputEmail())
                 ->setLabel('Email')
-                ->setValidationRule('required')
+                ->setValidationRule([
+                    'required',
+                    Rule::unique('users', 'email')->ignore($userId),
+                    'email',
+                ])
                 ->setValue($this->getFieldValue('email.value'))
                 ->setNameAndId('email.value')
                 ->get(),
 
             'password' => (new InputPassword())
                 ->setLabel('Пароль')
+                ->setValidationRule('nullable|min:8')
                 ->setNameAndId('password.value')
                 ->get(),
 
@@ -74,5 +80,16 @@ class UserForm extends AbstractForm
         }
 
         return $this->entityData->roles->pluck('id');
+    }
+
+    public function validationMessages(): array
+    {
+        return [
+            'email.value.unique' => 'Этот адрес электронной почты уже занят',
+            'email.value.required' => 'Поле Email обязательно для заполнения',
+            'name.value.required' => 'Поле Имя обязательно для заполнения',
+            'roles.value.required' => 'Укажите роль пользователя',
+            'password.value.min' => 'Пароль должен содержать минимум 8 символов',
+        ];
     }
 }

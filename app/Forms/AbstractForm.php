@@ -139,6 +139,14 @@ abstract class AbstractForm
     }
 
     /**
+     * Сообщения об ошибках валидации
+     */
+    public function validationMessages(): array
+    {
+        return [];
+    }
+
+    /**
      * Метод выполняет валидацию формы
      */
     public function validate(): self
@@ -147,6 +155,7 @@ abstract class AbstractForm
         $validator = Validator::make(
             data: $request->all(),
             rules: $this->getValidationRules(),
+            messages: $this->validationMessages()
         );
         $validator->validate();
         return $this;
