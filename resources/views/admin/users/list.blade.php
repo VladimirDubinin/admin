@@ -24,7 +24,7 @@
             <div class="filter">
                 <h5 class="mb-3">Фильтр</h5>
                 <form method="GET" action="{{ route('admin.users') }}">
-                    @include('parts.forms.form', ['form' => $filters])
+                    @include('parts.forms.form', ['form' => $filters->toArray()])
                     <div class="d-flex gap-2 mt-3">
                         <input class="btn btn-sm btn-primary" type="submit" value="Применить">
                         <a  class="btn btn-sm btn-outline-primary" href="{{ route('admin.users') }}">Сбросить</a>
@@ -32,6 +32,10 @@
                 </form>
             </div>
         </div>
+    </div>
+
+    <div class="controls d-flex justify-content-end">
+        <a href="{{ route('admin.users.download', $filters->fields()) }}">Выгрузить</a>
     </div>
 
     <table class="table table-parts table-sm table-bordered table-hover">
@@ -48,7 +52,7 @@
             <tr>
                 <td><a href="{{ route('admin.users.edit', $user->id) }}">{{ $user->name }}</a></td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->roles()->pluck('display_name')->implode(', ') }}</td>
+                <td>{{ $user->roles }}</td>
                 <td>{{ $user->created_at }}</td>
             </tr>
         @endforeach

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Modules\Users\Filters\UserFilter;
 use Modules\Users\Forms\UserForm;
 use Modules\Users\Models\User;
+use Modules\Users\Services\UserExcelService;
 use Modules\Users\Services\UserService;
 
 class UsersController extends Controller
@@ -27,7 +28,7 @@ class UsersController extends Controller
         return view('admin.users.list', [
             'users' => $users,
             'pageTitle' => 'Пользователи',
-            'filters' => $filter->toArray(),
+            'filters' => $filter,
         ]);
     }
 
@@ -84,5 +85,11 @@ class UsersController extends Controller
         $request->session()->flash('info', 'Пользователь успешно удалён!');
         $request->session()->flash('alert', 'success');
         return response()->json(['success' => true]);
+    }
+
+    public function download(UserFilter $filter, UserExcelService $excelService): void
+    {
+        $users = User::filter($filter)->get();
+        $excelService->setItems($users)->export();
     }
 }

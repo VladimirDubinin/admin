@@ -98,6 +98,14 @@
 
         .controls {
             margin-bottom: 1rem;
+
+            a {
+                color: $primary;
+
+                &:hover {
+                    color: $green;
+                }
+            }
         }
 
         table a {

@@ -51,6 +51,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function getRolesAttribute(): string
+    {
+         return $this->roles()->pluck('display_name')->implode(', ');
+    }
+
     /**
      * Получить имя пользователя
      */

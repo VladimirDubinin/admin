@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 abstract class QueryFilter
 {
-    protected array $filterableFields = [];
+    protected array $form = [];
 
     protected Builder $builder;
 
@@ -19,14 +19,22 @@ abstract class QueryFilter
         $this->form();
     }
 
+    /** Метод должен заполнять массив формы */
     abstract public function form(): void;
 
     /** Метод возвращает массив формы фильтра @return array */
     public function toArray(): array
     {
-        return $this->filterableFields;
+        return $this->form;
     }
 
+    /**
+     * Метод добавляет в построитель запроса условия в соответствии с параметрами фильтра
+     * Ключу поля в форме фильтра должен соответствовать метод в camelCase
+     *
+     * @param Builder $builder
+     * @return void
+     */
     public function apply(Builder $builder): void
     {
         $this->builder = $builder;
@@ -39,9 +47,14 @@ abstract class QueryFilter
         }
     }
 
-    protected function fields(): array
+    /**
+     * Метод возвращает массив значений полей фильтра из реквеста
+     *
+     * @return array
+     */
+    public function fields(): array
     {
-        $fields = $this->request->only(array_keys($this->filterableFields));
+        $fields = $this->request->only(array_keys($this->form));
 
         return array_filter(
             array_map('trim', $fields)

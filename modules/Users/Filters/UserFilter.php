@@ -11,7 +11,7 @@ class UserFilter extends QueryFilter
 {
     public function form(): void
     {
-        $this->filterableFields = [
+        $this->form = [
             'name' => (new InputText())
                 ->setLabel('Имя')
                 ->setValue($this->request->input('name'))
