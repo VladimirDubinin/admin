@@ -79,7 +79,7 @@ class UserForm extends AbstractForm
             return [];
         }
 
-        return $this->entityData->roles->pluck('id');
+        return $this->entityData->roles()->pluck('id');
     }
 
     public function validationMessages(): array
