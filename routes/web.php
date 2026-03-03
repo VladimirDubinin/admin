@@ -33,6 +33,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         Route::get('/edit/{id}', [UsersController::class, 'edit'])->name('admin.users.edit');
         Route::post('/get_form/{id?}', [UsersController::class, 'getForm'])->name('admin.users.get_form');
         Route::post('/store', [UsersController::class, 'store'])->name('admin.users.store');
-        Route::post('/delete/{id}', [UsersController::class, 'delete'])->name('admin.users.delete');
+        Route::delete('/delete/{id}', [UsersController::class, 'delete'])->name('admin.users.delete');
     });
 });

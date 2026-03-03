@@ -47,7 +47,7 @@ async function store() {
 
 async function remove() {
     if (confirm('Вы уверены, что хотите удалить пользователя?')) {
-        await axios.post(props.delete_url, form.value.id).then((response) => {
+        await axios.delete(props.delete_url, form.value.id).then((response) => {
             if (response.data.success) {
                 window.location.href = props.back_url
             }
