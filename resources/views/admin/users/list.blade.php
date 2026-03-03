@@ -34,6 +34,7 @@
         </div>
     </div>
 
+    @if ($users && $users->count() > 0)
     <div class="controls d-flex justify-content-end">
         <a href="{{ route('admin.users.download', $filters->fields()) }}">Выгрузить</a>
     </div>
@@ -58,6 +59,9 @@
         @endforeach
         </tbody>
     </table>
-
     {{ $users->links('parts.breadcrumbs') }}
+
+    @else
+        <div>Пользователи не найдены.</div>
+    @endif
 @endsection
