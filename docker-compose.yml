@@ -57,6 +57,7 @@ services:
 
   redis:
     image: 'redis:alpine'
+    container_name: ${COMPOSE_PROJECT_NAME}.redis
     ports:
       - '${FORWARD_REDIS_PORT:-6379}:6379'
     volumes:
@@ -68,8 +69,10 @@ services:
         - ping
       retries: 3
       timeout: 5s
+
   meilisearch:
     image: 'getmeili/meilisearch:latest'
+    container_name: ${COMPOSE_PROJECT_NAME}.meilisearch
     ports:
       - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
     environment:
@@ -85,11 +88,32 @@ services:
         - 'http://127.0.0.1:7700/health'
       retries: 3
       timeout: 5s
+
   mailpit:
     image: 'axllent/mailpit:latest'
+    container_name: ${COMPOSE_PROJECT_NAME}.mailpit
     ports:
       - '${FORWARD_MAILPIT_PORT:-1025}:1025'
       - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+
+  queue-worker:
+    build:
+      context: .docker/php-fpm
+    container_name: ${COMPOSE_PROJECT_NAME}.queue-worker
+    depends_on:
+      - redis
+      - mariadb
+    volumes:
+      - .:/app
+    command: php /app/artisan queue:work --verbose --tries=3 --timeout=90
+    restart: unless-stopped
+    labels:
+      ofelia.enabled: "false"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 networks:
   app_network:
