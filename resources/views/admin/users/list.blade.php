@@ -9,11 +9,11 @@
         <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Добавить</a>
     </div>
 
-    @if (session('info'))
+    @if (session('status'))
         <div class="row mt-4">
             <div class="col-lg-8">
-                <div class="alert alert-{{session('alert')}} m-0" role="alert">
-                    {{ session('info') }}
+                <div class="alert alert-success m-0" role="alert">
+                    {{ session('status') }}
                 </div>
             </div>
         </div>

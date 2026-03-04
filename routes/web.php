@@ -14,25 +14,32 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+    Route::get('/forgot-password', [AuthController::class, 'showRestorePasswordForm'])->name('password.restore.form');
+    Route::post('/forgot-password', [AuthController::class, 'restorePassword'])->name('password.restore');
+    Route::get('/change-password/{user}', [AuthController::class, 'showChangePasswordForm'])->name('password.change.form');
+    Route::post('/change-password/{user}', [AuthController::class, 'changePassword'])->middleware('signed')->name('password.change');
 });
 
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-/**
- * Панель администрирования
- */
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
-    Route::get('/', function () {
-        return view('admin.index');
-    })->name('admin.index');
+    /**
+     * Панель администрирования
+     */
+    Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
+        Route::get('/', function () {
+            return view('admin.index');
+        })->name('admin.index');
 
-    Route::group(['prefix' => 'users'], function () {
-        Route::get('/', [UsersController::class, 'index'])->name('admin.users');
-        Route::get('/create', [UsersController::class, 'create'])->name('admin.users.create');
-        Route::get('/download', [UsersController::class, 'download'])->name('admin.users.download');
-        Route::get('/edit/{id}', [UsersController::class, 'edit'])->name('admin.users.edit');
-        Route::post('/get_form/{id?}', [UsersController::class, 'getForm'])->name('admin.users.get_form');
-        Route::post('/store', [UsersController::class, 'store'])->name('admin.users.store');
-        Route::delete('/delete/{id}', [UsersController::class, 'delete'])->name('admin.users.delete');
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/', [UsersController::class, 'index'])->name('admin.users');
+            Route::get('/create', [UsersController::class, 'create'])->name('admin.users.create');
+            Route::get('/download', [UsersController::class, 'download'])->name('admin.users.download');
+            Route::get('/edit/{id}', [UsersController::class, 'edit'])->name('admin.users.edit');
+            Route::post('/get_form/{id?}', [UsersController::class, 'getForm'])->name('admin.users.get_form');
+            Route::post('/store', [UsersController::class, 'store'])->name('admin.users.store');
+            Route::delete('/delete/{id}', [UsersController::class, 'delete'])->name('admin.users.delete');
+        });
     });
 });

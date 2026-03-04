@@ -68,12 +68,11 @@ class UsersController extends Controller
         $fields = $userForm->form($id)->validate()->getFieldsFromRequest();
         if (!empty($id)) {
             $this->userService->update($id, $fields);
-            $request->session()->flash('info', 'Пользователь успешно обновлён!');
+            $request->session()->flash('status', 'Пользователь успешно обновлён!');
         } else {
             $this->userService->create($fields);
-            $request->session()->flash('info', 'Пользователь успешно добавлен!');
+            $request->session()->flash('status', 'Пользователь успешно добавлен!');
         }
-        $request->session()->flash('alert', 'success');
         return response()->json(['success' => true]);
     }
 
