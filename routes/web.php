@@ -1,45 +1,62 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Auth\Controller\AuthController;
+use Modules\Auth\Controllers\AuthController;
 use Modules\Users\Controllers\UsersController;
 
+/**
+ * Клиентская часть
+ */
 Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
-Route::group(['middleware' => 'guest'], function () {
-    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
-    Route::post('/register', [AuthController::class, 'register'])->name('register');
+/**
+ * Авторизация
+ */
+Route::group(['controller' => AuthController::class], function () {
+    Route::group(['middleware' => 'guest'], function () {
+        Route::get('/register', function () {
+            return view('auth.register');
+        })->name('register.form');
+        Route::post('/register', 'register')->name('register');
 
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
+        Route::get('/login', function () {
+            return view('auth.login');
+        })->name('login.form');
+        Route::post('/login', 'login')->name('login');
 
-    Route::get('/forgot-password', [AuthController::class, 'showRestorePasswordForm'])->name('password.restore.form');
-    Route::post('/forgot-password', [AuthController::class, 'restorePassword'])->name('password.restore');
-    Route::get('/change-password/{user}', [AuthController::class, 'showChangePasswordForm'])->name('password.change.form');
-    Route::post('/change-password/{user}', [AuthController::class, 'changePassword'])->middleware('signed')->name('password.change');
+        Route::get('/forgot-password', function () {
+            return view('auth.password_restore');
+        })->name('password.restore.form');
+        Route::post('/forgot-password', 'restorePassword')->name('password.restore');
+
+        Route::get('/change-password/{user}', function () {
+            return view('auth.password_change');
+        })->name('password.change.form');
+        Route::post('/change-password/{user}', 'changePassword')->middleware('signed')->name('password.change');
+    });
+
+    Route::get('/logout', 'logout')->middleware('auth')->name('logout');
 });
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+/**
+ * Панель администрирования
+ */
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
+    Route::get('/', function () {
+        return view('admin.index');
+    })->name('admin.index');
 
-    /**
-     * Панель администрирования
-     */
-    Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
-        Route::get('/', function () {
-            return view('admin.index');
-        })->name('admin.index');
-
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/', [UsersController::class, 'index'])->name('admin.users');
-            Route::get('/create', [UsersController::class, 'create'])->name('admin.users.create');
-            Route::get('/download', [UsersController::class, 'download'])->name('admin.users.download');
-            Route::get('/edit/{id}', [UsersController::class, 'edit'])->name('admin.users.edit');
-            Route::post('/get_form/{id?}', [UsersController::class, 'getForm'])->name('admin.users.get_form');
-            Route::post('/store', [UsersController::class, 'store'])->name('admin.users.store');
-            Route::delete('/delete/{id}', [UsersController::class, 'delete'])->name('admin.users.delete');
-        });
+    Route::group(['prefix' => 'users', 'controller' => UsersController::class], function () {
+        Route::get('/', 'index')->name('admin.users');
+        Route::get('/create', 'create')->name('admin.users.create');
+        Route::get('/download', 'download')->name('admin.users.download');
+        Route::get('/edit/{id}', 'edit')->name('admin.users.edit');
+        Route::post('/get_form/{id?}', 'getForm')->name('admin.users.get_form');
+        Route::post('/store', 'store')->name('admin.users.store');
+        Route::delete('/delete/{id}', 'delete')->name('admin.users.delete');
     });
 });
+
+

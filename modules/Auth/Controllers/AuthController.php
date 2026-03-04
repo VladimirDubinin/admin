@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Modules\Auth\Controller;
+namespace Modules\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -23,20 +22,10 @@ class AuthController extends Controller
     ) {
     }
 
-    public function showRegisterForm(): View
-    {
-        return view('auth.register');
-    }
-
     public function register(UserRegisterDTO $form): RedirectResponse
     {
         $this->authService->registrate($form);
         return redirect(route('index'));
-    }
-
-    public function showLoginForm(): View
-    {
-        return view('auth.login');
     }
 
     public function login(UserLoginRequest $request): RedirectResponse
@@ -62,22 +51,12 @@ class AuthController extends Controller
         return redirect(route('login.form'));
     }
 
-    public function showRestorePasswordForm(): View
-    {
-        return view('auth.password_restore');
-    }
-
     public function restorePassword(RestorePasswordDTO $form): RedirectResponse
     {
         $user = User::query()->where('email', $form->email)->firstOrFail();
         $this->authService->sendRestorePasswordLink($user);
         Session::flash('status', 'Ссылка для восстановления пароля отправлена на указанный email');
         return redirect()->back();
-    }
-
-    public function showChangePasswordForm(int $id): View
-    {
-        return view('auth.password_change', ['user_id' => $id]);
     }
 
     public function changePassword(User $user, ChangePasswordDTO $form): RedirectResponse

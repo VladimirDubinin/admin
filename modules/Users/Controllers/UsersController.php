@@ -79,8 +79,7 @@ class UsersController extends Controller
     public function delete(Request $request, int $id): JsonResponse
     {
         $this->userService->delete($id);
-        $request->session()->flash('info', 'Пользователь успешно удалён!');
-        $request->session()->flash('alert', 'success');
+        $request->session()->flash('status', 'Пользователь успешно удалён!');
         return response()->json(['success' => true]);
     }
 

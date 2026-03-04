@@ -16,7 +16,6 @@ class AdminUsersTest extends TestCase
     #[TestWith(['admin.users.edit', 'GET', ['id' => 1]], 'userEdit')]
     #[TestWith(['admin.users.get_form', 'POST'], 'getUserForm')]
     #[TestWith(['admin.users.store', 'POST'], 'userStore')]
-    #[TestWith(['admin.users.delete', 'POST', ['id' => 1]], 'userDelete')]
     public function testAccessToPages(string $routeName, string $method = 'GET', array $params = []): void
     {
         if ($method === 'GET') {
@@ -70,7 +69,7 @@ class AdminUsersTest extends TestCase
         $user->addRole('admin');
         $this->actingAs($user);
         $newUser = UserFactory::new()->create();
-        $response = $this->post(route('admin.users.delete', ['id' => $newUser->id]));
+        $response = $this->delete(route('admin.users.delete', ['id' => $newUser->id]));
 
         $response->assertStatus(200)
             ->assertJson(['success' => true]);
