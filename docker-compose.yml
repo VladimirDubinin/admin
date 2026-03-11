@@ -2,6 +2,8 @@ services:
   nginx:
     restart: unless-stopped
     container_name: ${COMPOSE_PROJECT_NAME}.nginx
+    environment:
+      - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
     build:
       context: ./.docker/nginx
       target: nginx_dev
