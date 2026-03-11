@@ -2,8 +2,6 @@ services:
   nginx:
     restart: unless-stopped
     container_name: ${COMPOSE_PROJECT_NAME}.nginx
-    environment:
-      - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
     build:
       context: ./.docker/nginx
       target: nginx_dev
@@ -19,6 +17,10 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    environment:
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+    networks:
+      - app_network
 
   php-fpm:
     restart: unless-stopped
@@ -35,6 +37,8 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    networks:
+      - app_network
 
   mariadb:
     restart: unless-stopped
@@ -56,6 +60,8 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    networks:
+      - app_network
 
   redis:
     image: 'redis:alpine'
@@ -71,6 +77,8 @@ services:
         - ping
       retries: 3
       timeout: 5s
+    networks:
+      - app_network
 
   meilisearch:
     image: 'getmeili/meilisearch:latest'
@@ -91,6 +99,8 @@ services:
         - 'http://127.0.0.1:7700/health'
       retries: 3
       timeout: 5s
+    networks:
+      - app_network
 
   mailpit:
     image: 'axllent/mailpit:latest'
@@ -98,6 +108,8 @@ services:
     ports:
       - '${FORWARD_MAILPIT_PORT:-1025}:1025'
       - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+    networks:
+      - app_network
 
   queue-worker:
     build:
@@ -117,6 +129,9 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    networks:
+      - app_network
 
 networks:
   app_network:
+    driver: bridge
