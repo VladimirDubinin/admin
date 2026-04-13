@@ -11,16 +11,22 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use Modules\Auth\DTO\UserRegisterDTO;
 use modules\Users\Models\User;
+use Modules\Users\Repositories\UserRepository;
 
-class AuthService
+readonly class AuthService
 {
+    public function __construct(
+        private UserRepository $userRepository,
+    ) {
+    }
+
     public function registrate(UserRegisterDTO $userRegisterDTO): User
     {
-        $user = new User();
-        $user->name = $userRegisterDTO->name;
-        $user->email = $userRegisterDTO->email;
-        $user->password = $userRegisterDTO->password;
-        $user->save();
+        $user = $this->userRepository->create([
+            'name' => $userRegisterDTO->name,
+            'email' => $userRegisterDTO->email,
+            'password' => $userRegisterDTO->password,
+        ]);
         $user->addRole('user');
 
         Auth::login($user);

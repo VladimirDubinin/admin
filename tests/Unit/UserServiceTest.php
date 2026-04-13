@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use modules\Users\Models\User;
-use Modules\Users\Services\UserService;
+use Modules\Users\Repositories\UserService;
 use Tests\TestCase;
 
 class UserServiceTest extends TestCase

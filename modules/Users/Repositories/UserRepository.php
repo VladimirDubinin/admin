@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Users\Services;
+namespace Modules\Users\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use Modules\Users\Models\User;
 
-class UserService
+class UserRepository
 {
     public function create(array $fields): User
     {

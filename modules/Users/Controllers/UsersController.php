@@ -11,15 +11,15 @@ use Illuminate\Http\Request;
 use Modules\Users\Filters\UserFilter;
 use Modules\Users\Forms\UserForm;
 use Modules\Users\Models\User;
+use Modules\Users\Repositories\UserRepository;
 use Modules\Users\Services\UserExcelService;
-use Modules\Users\Services\UserService;
 
 class UsersController extends Controller
 {
     public function __construct(
-        private readonly UserService $userService
-    )
-    {}
+        private readonly UserRepository $userRepository
+    ) {
+    }
 
     public function index(UserFilter $filter): View
     {
@@ -67,10 +67,10 @@ class UsersController extends Controller
         $id = $request->input('id', 0);
         $fields = $userForm->form($id)->validate()->getFieldsFromRequest();
         if (!empty($id)) {
-            $this->userService->update($id, $fields);
+            $this->userRepository->update($id, $fields);
             $request->session()->flash('status', 'Пользователь успешно обновлён!');
         } else {
-            $this->userService->create($fields);
+            $this->userRepository->create($fields);
             $request->session()->flash('status', 'Пользователь успешно добавлен!');
         }
         return response()->json(['success' => true]);
@@ -78,7 +78,7 @@ class UsersController extends Controller
 
     public function delete(Request $request, int $id): JsonResponse
     {
-        $this->userService->delete($id);
+        $this->userRepository->delete($id);
         $request->session()->flash('status', 'Пользователь успешно удалён!');
         return response()->json(['success' => true]);
     }
