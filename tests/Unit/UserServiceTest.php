@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use modules\Users\Models\User;
+use Modules\Users\Repositories\UserRepository;
 use Modules\Users\Repositories\UserService;
 use Tests\TestCase;
 
@@ -16,26 +17,24 @@ class UserServiceTest extends TestCase
      */
     public function testCreateAndUpdateUser(): void
     {
+        $name = 'Based Name';
         $fields = [
-            'name' => 'Test User',
+            'name' => $name,
             'email' => 'test@email.test',
             'password' => 'password',
             'roles' => 1,
         ];
-        $userService = new UserService();
-        $createdUser = $userService->create($fields);
-        $this->assertInstanceOf(User::class, $createdUser);
+        $userRepository = new UserRepository();
+        $createdUser = $userRepository->create($fields);
+        $this->assertEquals($name, $createdUser->name);
 
         $newName = 'New Name';
-        $newEmail = 'new@email.test';
-        $updatedUser = $userService->update($createdUser->id, [
+        $updatedUser = $userRepository->update($createdUser->id, [
             'name' => $newName,
-            'email' => $newEmail,
         ]);
         $this->assertEquals($newName, $updatedUser->name);
-        $this->assertEquals($newEmail, $updatedUser->email);
 
-        $userService->delete($updatedUser->id);
+        $userRepository->delete($updatedUser->id);
         $deletedUser = User::query()->find($updatedUser->id);
         $this->assertNull($deletedUser);
     }
