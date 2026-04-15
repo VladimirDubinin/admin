@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Modules\Auth\Controllers;
+namespace Src\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Modules\Auth\DTO\ChangePasswordDTO;
-use Modules\Auth\DTO\RestorePasswordDTO;
-use Modules\Auth\DTO\UserRegisterDTO;
-use Modules\Auth\Requests\UserLoginRequest;
-use Modules\Auth\Services\AuthService;
-use modules\Users\Models\User;
+use Src\Auth\DTO\ChangePasswordDTO;
+use Src\Auth\DTO\RestorePasswordDTO;
+use Src\Auth\DTO\UserRegisterDTO;
+use Src\Auth\Requests\UserLoginRequest;
+use Src\Auth\Services\AuthService;
+use Src\Users\Models\User;
 
 class AuthController extends Controller
 {

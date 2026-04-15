@@ -99,7 +99,7 @@ return [
     |
     */
     'user_models' => [
-        'users' => \Modules\Users\Models\User::class,
+        'users' => \Src\Users\Models\User::class,
     ],
 
     /*
@@ -114,9 +114,9 @@ return [
     */
     'models' => [
 
-        'role' => \Modules\Users\Models\Role::class,
+        'role' => \Src\Users\Models\Role::class,
 
-        'permission' => \Modules\Users\Models\Permission::class,
+        'permission' => \Src\Users\Models\Permission::class,
 
         /**
          * Will be used only if the teams functionality is enabled.

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Modules\Auth\Services;
+namespace Src\Auth\Services;
 
 use App\Mail\ForgotPasswordSend;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
-use Modules\Auth\DTO\UserRegisterDTO;
-use modules\Users\Models\User;
-use Modules\Users\Repositories\UserRepository;
+use Src\Auth\DTO\UserRegisterDTO;
+use Src\Users\Models\User;
+use Src\Users\Repositories\UserRepository;
 
 readonly class AuthService
 {

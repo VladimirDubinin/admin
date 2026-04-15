@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Users\Filters;
+namespace Src\Users\Filters;
 
 use App\Filters\QueryFilter;
 use App\Forms\Inputs\InputText;
 use App\Forms\Inputs\Select;
-use Modules\Users\Models\Role;
+use Src\Users\Models\Role;
 
 class UserFilter extends QueryFilter
 {

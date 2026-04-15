@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\DTO;
+namespace Src\Auth\DTO;
 
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Attributes\Validation\Confirmed;

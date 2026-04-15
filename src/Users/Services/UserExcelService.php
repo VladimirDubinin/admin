@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Users\Services;
+namespace Src\Users\Services;
 
 use Illuminate\Support\Collection;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;

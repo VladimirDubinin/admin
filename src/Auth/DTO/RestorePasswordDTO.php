@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\DTO;
+namespace Src\Auth\DTO;
 
 use Spatie\LaravelData\Attributes\Validation\Email;
 use Spatie\LaravelData\Attributes\Validation\Exists;

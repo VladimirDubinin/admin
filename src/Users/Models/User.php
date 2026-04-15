@@ -1,6 +1,6 @@
 <?php
 
-namespace modules\Users\Models;
+namespace Src\Users\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Filters\Filterable;

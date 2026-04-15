@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Modules\Users\Controllers;
+namespace Src\Users\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Modules\Users\Filters\UserFilter;
-use Modules\Users\Forms\UserForm;
-use Modules\Users\Models\User;
-use Modules\Users\Repositories\UserRepository;
-use Modules\Users\Services\UserExcelService;
+use Src\Users\Filters\UserFilter;
+use Src\Users\Forms\UserForm;
+use Src\Users\Models\User;
+use Src\Users\Repositories\UserRepository;
+use Src\Users\Services\UserExcelService;
 
 class UsersController extends Controller
 {

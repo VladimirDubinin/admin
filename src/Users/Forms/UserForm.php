@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Users\Forms;
+namespace Src\Users\Forms;
 
 use App\Forms\AbstractForm;
 use App\Forms\Inputs\InputEmail;
@@ -11,8 +11,8 @@ use App\Forms\Inputs\Select;
 use App\Forms\Inputs\InputText;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
-use Modules\Users\Models\Role;
-use modules\Users\Models\User;
+use Src\Users\Models\Role;
+use Src\Users\Models\User;
 
 class UserForm extends AbstractForm
 {
