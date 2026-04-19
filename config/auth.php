@@ -62,7 +62,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', \Src\Users\Models\User::class),
+            'model' => env('AUTH_MODEL', \App\Users\Domain\Models\User::class),
         ],
 
         // 'users' => [

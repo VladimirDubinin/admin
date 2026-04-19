@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Auth\Controllers\AuthController;
-use Src\Users\Controllers\UsersController;
+use App\Users\Presentation\Controllers\AuthController;
+use App\Users\Presentation\Controllers\UsersController;
 
 /**
  * Клиентская часть

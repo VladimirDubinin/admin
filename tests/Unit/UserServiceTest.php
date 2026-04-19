@@ -3,8 +3,8 @@
 namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\Users\Models\User;
-use Src\Users\Repositories\UserRepository;
+use Src\Users\Domain\Models\User;
+use Src\Users\Infrastructure\Repositories\UserRepository;
 use Tests\TestCase;
 
 class UserServiceTest extends TestCase
