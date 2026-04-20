@@ -8,6 +8,8 @@ use App\Shared\Application\ExcelService;
 
 class UserExcelService extends ExcelService
 {
+    protected static string $fileName = 'users';
+
     protected function getFieldsDefinition(): array
     {
         return [

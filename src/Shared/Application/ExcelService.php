@@ -11,6 +11,8 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 abstract class ExcelService
 {
+    protected static string $fileName = 'export';
+
     protected Collection $items;
     protected Worksheet $worksheet;
 
@@ -58,7 +60,6 @@ abstract class ExcelService
             $excelData[] = $itemData;
         }
 
-
         $this->worksheet->fromArray($excelData, null, 'A2');
         $this->write();
     }
@@ -67,7 +68,7 @@ abstract class ExcelService
     {
         $writer = new Xlsx($this->sheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="uses.xlsx"');
+        header('Content-Disposition: attachment;filename="' . static::$fileName . '.xlsx"');
         $writer->save('php://output');
     }
 }
